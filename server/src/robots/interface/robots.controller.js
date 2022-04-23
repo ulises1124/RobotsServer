@@ -12,12 +12,13 @@ export const robotsController = (router) => {
     res.send('Ruta del robot funcionando');
   });
 
-  router.post('/robots', (req, res) => {
+  router.post('/robots', async (req, res) => {
     const command = new CreateRobotCommand({ ...req.body });
     const handler = new CreateRobotHandler();
-    handler.handle(command);
+    await handler.handle(command);
     res.sendStatus(204);
   });
+
   //guardar el robot con todas las modifficaciones
   router.put('/robots/:id/status', async (req, res) => {
     // creamos el comando con la informacion necesaria y la guardamos en la constante command
@@ -44,7 +45,7 @@ export const robotsController = (router) => {
     res.status(200).send(result);
   });
 
-  router.get('/robots/:id/attack', async (req, res) => {
+  router.put('/robots/:id/attack', async (req, res) => {
     const command = new AttackRobotCommand({ ...req.params });
 
     const handler = new AttackRobotHandler();
