@@ -2,7 +2,7 @@ import { Factory } from '../../domain/factory.js';
 import { RobotRepository } from '../../infraestructure/robot.repository.js';
 
 export class CreateRobotHandler {
-  constructor(){
+  constructor() {
     this.robotRepository = new RobotRepository();
   }
 
