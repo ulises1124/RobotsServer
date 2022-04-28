@@ -12,6 +12,7 @@ export const robotsController = (router) => {
     res.send('Ruta del robot funcionando');
   });
 
+  /* Aqui llegamos desde el frontend */
   router.post('/robots', async (req, res) => {
     const command = new CreateRobotCommand({ ...req.body });
     const handler = new CreateRobotHandler();
