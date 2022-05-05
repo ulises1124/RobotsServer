@@ -1,7 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 import { healtCheck } from './app.controller.js';
-import { resourcesController } from './resources/interface/resources.controller.js';
 import { robotsController } from './robots/interface/robots.controller.js';
 
 const app = express();
@@ -19,7 +18,6 @@ const port = 3001;
 app.use(express.json());
 
 healtCheck(router);
-resourcesController(router);
 robotsController(router);
 
 app.use(router);
