@@ -1,7 +1,7 @@
 import { MongoRepository } from '../../shared/infraestructure/mongo-repository.js';
 import { Factory } from '../domain/factory.js';
 
-export class RobotRepository extends MongoRepository { 
+export class RobotRepository extends MongoRepository {
   constructor() {
     super();
     this.collectionName = 'robots';
@@ -15,6 +15,12 @@ export class RobotRepository extends MongoRepository {
     const collection = await this.collection();
     const document = await collection.findOne({ _id: id });
     return this.documentToRobot(document);
+  }
+
+  async find() {
+    const collection = await this.collection();
+    const documents = await collection.find().toArray();
+    return documents.map((document) => { return this.documentToRobot(document); });
   }
 
   documentToRobot(document) {

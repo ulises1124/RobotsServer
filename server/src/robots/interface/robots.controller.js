@@ -6,10 +6,15 @@ import { GetRobotHandler } from '../application/queries/get-robot.handler.js';
 import { GetRobotQuery } from '../application/queries/get-robot.query.js';
 import { AttackRobotCommand } from '../application/commands/attack-robot.comand.js';
 import { AttackRobotHandler } from '../application/commands/attack-robot.handler.js';
+import { ListRobotsQuery } from '../application/queries/list-robots.query.js';
+import { ListRobotsHandler } from '../application/queries/list-robots.handler.js';
 
 export const robotsController = (router) => {
-  router.get('/robots', (req, res) => {
-    res.send('Ruta del robot funcionando');
+  router.get('/robots', async (req, res) => {
+    const query = new ListRobotsQuery();
+    const handler = new ListRobotsHandler();
+    const result = await handler.handle(query);
+    res.status(200).send(result);
   });
 
   /* Aqui llegamos desde el frontend */
@@ -61,5 +66,6 @@ export const robotsController = (router) => {
     }
 
   });
+
 
 };
