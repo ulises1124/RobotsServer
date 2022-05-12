@@ -1,0 +1,53 @@
+version: '3.8'
+
+networks:
+  my-network:
+
+services:
+
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - '/var/run/docker.sock:/tmp/docker.sock:ro'
+      - 'certs:/etc/nginx/certs:ro'
+      - 'vhostd:/etc/nginx/vhost.d'
+      - 'html:/usr/share/nginx/html'
+    networks:
+      - my-network
+    labels:
+      - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
+
+  letsencrypt:
+    image: nginxproxy/acme-companion
+    environment:
+      - NGINX_PROXY_CONTAINER=nginx-proxy
+      - ACME_CA_URI=https://acme-staging-v02.api.letsencrypt.org/directory
+    volumes:
+      - 'certs:/etc/nginx/certs:rw'
+      - 'vhostd:/etc/nginx/vhost.d'
+      - 'html:/usr/share/nginx/html'
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+
+  server-service:
+    image: docker.jesusyaro.com/server
+    build:
+      context: ./server
+      dockerfile: ./Dockerfile
+    container_name: server-container
+    expose:
+      - '3001'
+    networks:
+      - my-network
+    environment:
+      - FRONTEND=localhost
+      - 'VIRTUAL_HOST=server.clarity.sbs'
+      - 'LETSENCRYPT_HOST=server.clarity.sbs'
+      - 'LETSENCRYPT_EMAIL=oscarulises1124@hotmail.com'
+
+volumes:
+  certs: null
+  html: null
+  vhostd: null
