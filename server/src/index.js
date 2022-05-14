@@ -7,7 +7,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: 'https://d2ezn52lyf603y.cloudfront.net',
     methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'],
   }),
 );
