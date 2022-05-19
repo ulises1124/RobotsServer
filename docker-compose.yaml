@@ -42,7 +42,7 @@ services:
     networks:
       - my-network
     environment:
-      - FRONTEND=localhost
+      - FRONTEND=https://d2ezn52lyf603y.cloudfront.net/
       - 'VIRTUAL_HOST=server.clarity.sbs'
       - 'LETSENCRYPT_HOST=server.clarity.sbs'
       - 'LETSENCRYPT_EMAIL=oscarulises1124@hotmail.com'

@@ -19,4 +19,4 @@ services:
     networks:
       - my-network
     environment:
-      - FRONTEND=localhost
+      - FRONTEND=http://localhost:3000
