@@ -7,7 +7,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: 'https://d2ezn52lyf603y.cloudfront.net',
+    origin: process.env.FRONTEND,
     methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'],
   }),
 );
